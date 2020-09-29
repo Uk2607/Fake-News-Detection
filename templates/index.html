@@ -8,15 +8,22 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="../static/assets/news.png">
-    <title>Fake NEWS Tracker</title>
+    <link href="../static/css/magnific-popup.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>BUST NEWS</title>
 </head>
 
-<body>
+<body id="body">
+    <button onclick="topFunction()" id="topbtn" title="Go to top"><img src="../static/img/up-arrow.png"
+            alt="top"></button>
     <header id="header">
         <h1 id="title">BUST NEWS</h1>
         <ul>
             <li><a href="#home" class="active" onclick="toggle()">Home</a></li>
-            <li><a href="covid.html" onclick="toggle()">COVID-19</a></li>
+            <li><a href="{{ url_for('covid_func') }}" onclick="toggle()">COVID-19</a></li>
             <li><a href="#contact" onclick="toggle()">Contact</a></li>
         </ul>
         <div class="toggle" onclick="toggle()"></div>
@@ -25,22 +32,24 @@
     <section id="home">
         <div class="first group">
             <div class="col span_1_of_2">
-                <form action="{{ url_for('predict') }}" method="POST">
-                    <input type="text" placeholder="Verify NEWS here..." class="search" id="searchtxt" name="searchtxt">
-                    <button class="buttons" id="btn1"><i class="fa fa-search"></i></button><br>
-                    <a href="https://www.youtube.com/watch?v=pHxz8l1iWU4&list=RD2ogKpj5QuSY&index=3"
-                        class="btn btn-2"><i class="fa fa-play-circle"></i> How it works</a>
-
+                <form>
+                    <div class="loading" id="open">
+                        <input type="text" placeholder="Verify NEWS here..." class="search" id="searchtxt"
+                            name="searchtxt">
+                        <button type="button" class="buttons" id="btn--search"><i class="fa fa-search"></i>
+                        </button><br>
+                        <a href="https://www.youtube.com/watch?v=nTIumXl3_Xo&t=8s" class="button popup-youtube"><i
+                                class="fa fa-play-circle"></i> How it works</a>
+                    </div>
+                    <div>
+                        <img class="loader" id="gifs" src="../static/img/loader.gif" />
+                    </div>
                 </form>
                 <div class="content">
-                    <button class="result">{{ prediction_text }}</button>
+                    <button class="result">
+                        Press Search
+                    </button>
                 </div>
-                <!-- <input type="checkbox" id="check">
-                <div class="box">
-                    <input class="searchbar" type="text" placeholder="Search or Copy URL">
-                    <label for="check"><i class="fa fa-search"></i></label>
-                </div> -->
-
             </div>
             <div class="col span_1_of_2">
                 <div class="swiper-container">
@@ -50,7 +59,8 @@
                                 <li style="margin-top: 50px">​Wanna find the whole truth behind the NEWS and not get
                                     carried by any NEWS that you see..? You are at the right place <br> </li>
                                 <li style="font-size: 20px;"><br> BUST NEWS -</li>
-                                <li style=" float: right; font-size: 16px;"> Truth seeks U ​​​</li>
+                                <li style=" float: right; font-size: 16px;"> Because u deserve nothing but the truth ​​​
+                                </li>
                             </ul>
                         </div>
                         <div class="swiper-slide">
@@ -90,8 +100,7 @@
                     <img src="../static/img/contact.png" alt="">
                 </div>
                 <div class="contact-form">
-                    <form action="/#Message-Sent" name="contact" method="POST"><input type="hidden" name="form-name"
-                            value="contact">
+                    <form id="form">
                         <div class="input-field">
                             <i class="fa fa-user"></i>
                             <input type="text" id="name" name="name" placeholder="Name" required="">
@@ -102,8 +111,7 @@
                         </div><br>
                         <textarea name="message" id="message" cols="" rows="" placeholder="Enter your NEWS..."
                             required=""></textarea>
-
-                        <button type="submit" class="last-click">SEND</button>
+                        <button type="button" class="last-click" id="submit">SEND</button>
                     </form>
                 </div>
             </div>
@@ -115,11 +123,76 @@
             var header = document.getElementById("header");
             header.classList.toggle('active');
         }
+        $("#submit").click(function () {
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var message = $("#message").val();
+
+            if (name == '' || email == '' || message == '') {
+
+                swal({
+                    title: "Missing!",
+                    text: "Fields Empty",
+                    icon: "error",
+                    button: "Done",
+                })
+            }
+            else {
+                swal({
+                    title: "Good job!",
+                    text: "You BUSTED NEWS today",
+                    icon: "success",
+                    button: "Done",
+                });
+                document.getElementById("form").reset();
+            }
+        })
+        function load() {
+            var gif = document.getElementById("gifs");
+            var dispy = document.getElementById("open");
+            dispy.style.display = "none";
+            gif.style.display = "block";
+        }
+        function unload() {
+            var gif = document.getElementById("gifs");
+            var dispy = document.getElementById("open");
+            dispy.style.display = "block";
+            gif.style.display = "none";
+        }
+        function request() {
+            var formData = new FormData();
+            var data = document.getElementById('searchtxt').value;
+            var btnText = document.querySelector('.result');
+
+            formData.append("searchtxt", data);
+            console.log(formData)
+            console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+            load();
+            console.log('ddeddd')
+            fetch('https://bustnews.herokuapp.com/predict', {
+                method: 'post',
+                body: formData
+            })
+                .then(res =>
+                    res.json()
+                ).then(data => {
+                    btnText.innerHTML = data.btnMessage;
+                    unload();
+                })
+        }
+
+        document.getElementById("btn--search").addEventListener("click", function (event) {
+            event.preventDefault();
+            request()
+        });
+
     </script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="../static/scripts/slider.js"></script>
     <script src="../static/scripts/particles.js"></script>
     <script src="../static/scripts/app.js"></script>
+    <script src="../static/scripts/jquery.magnific-popup.js"></script>
+    <script src="../static/scripts/scripts.js"></script>
 </body>
 
 </html>

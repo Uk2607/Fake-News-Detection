@@ -15,7 +15,24 @@ var swiper = new Swiper('.swiper-container', {
         prevEl: '.swiper-button-prev',
       },
       autoplay: {
-        delay: 2500,
+        delay: 6000,
         disableOnInteraction: false,
       },
 });
+
+/* ----------------------------------------- Back to Top Button ---------------------------------------- */
+
+var mybutton = document.getElementById("topbtn");
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+mybutton.style.display = "block";
+} else {
+mybutton.style.display = "none";
+}
+}
+function topFunction() {
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+}

@@ -7,12 +7,16 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 import pickle
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for, redirect, jsonify
+from flask_cors import CORS, cross_origin
+
+
+app = Flask(__name__)
+CORS(app)
+
 
 nltk.download('stopwords')
 nltk.download('punkt')
-
-app = Flask(__name__)
 
 
 def loadModels(model_path, encoder_path):
@@ -57,17 +61,29 @@ def predict_news(txt, maxlen, clf_model, clf_encoder):
 @app.route('/')
 def home():
     return render_template("index.html")
-
+    
+    
+@app.route('/covid', methods=['GET', 'POST'])
+def covid_func():
+    if request.method == 'POST':
+        return redirect(url_for('home'))
+    return render_template("covid.html")
+    
 
 @app.route("/predict", methods=['POST'])
 def predict():
     model, encoder = loadModels('models', 'models')
-#     model, encoder = loadModels('E:\\New folder\\Fake-Local\\models', 'E:\\New folder\\Fake-Local\\models')
+    #model, encoder = loadModels('E:\\New folder\\Fake-Local\\models', 'E:\\New folder\\Fake-Local\\models')
     req = request.form
     news = req.get("searchtxt")
     prediction = predict_news(str(news), 256, model, encoder)
-    return render_template("index.html", prediction_text='News is {}'.format(prediction))
+    if prediction:
+        response = {'btnMessage': 'News is {}'.format(prediction)}
+    else:
+        response = {'btnMessage': 'News is {}'.format(prediction)}
+    
+    return jsonify(response), 200
 
 
 if __name__ == "__main__":
-    app.run(port=5001,debug=True)
+    app.run(debug=True)
