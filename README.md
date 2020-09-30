@@ -4,6 +4,9 @@
 
 Bust News
 ======================
+
+In this world full of people with each having his own view and opinion towards a particular news can lead to different interpretations of the same news. There are plenty of resources for latest NEWS from newspapers to modern apps which give recent and instant updates over particular issues. Each source has its own way of interpreting news based on the information they have. But there are very few to none sources to determine it's true origin or reality. So how to find the truth behind the NEWS you have seen or heard? Here comes the BUST NEWS. This is the website where you can find what is real and what is fake. Just visit the website and search for the news you have seen or heard and you will get instant Truth because you deserve nothing but the Truth.  
+
 [![Website Status](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://status.heroku.com/) 
 [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/thesauravkarmakar/Fake-News-Detection/blob/master/LICENSE)  [![Python](https://img.shields.io/badge/python-v3.7.7-green)]()  
 
@@ -16,6 +19,8 @@ Bust News
 - [License](#license)
 
 ## 🖥️ Demo
+
+### Visit website https://bustnews.herokuapp.com/ or [watch video](https://www.youtube.com/watch?v=a7RxPjuiHbA)
 
 ## :zap: Installation
 
@@ -54,9 +59,10 @@ Bust News
 </p>
 
 ## :man_in_tuxedo: Team
-[Saurav Karmakar](https://www.linkedin.com/in/sauravkarmakar/)
-[Aagam Jain](https://www.linkedin.com/in/aagam-jain-b5760619a/)
-[Utkarsh Kumawat](https://www.linkedin.com/in/utkarsh-kumawat-86094816b/)
+
+1. [Aagam Jain](https://www.linkedin.com/in/aagam-jain-b5760619a/)
+2. [Saurav Karmakar](https://www.linkedin.com/in/sauravkarmakar/)
+3. [Utkarsh Kumawat](https://www.linkedin.com/in/utkarsh-kumawat-86094816b/) 
 
 ## Show your support
 

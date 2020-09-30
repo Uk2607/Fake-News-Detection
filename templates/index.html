@@ -38,7 +38,7 @@
                             name="searchtxt">
                         <button type="button" class="buttons" id="btn--search"><i class="fa fa-search"></i>
                         </button><br>
-                        <a href="https://www.youtube.com/watch?v=nTIumXl3_Xo&t=8s" class="button popup-youtube"><i
+                        <a href="https://www.youtube.com/watch?v=a7RxPjuiHbA&feature=youtu.be" class="button popup-youtube"><i
                                 class="fa fa-play-circle"></i> How it works</a>
                     </div>
                     <div>
@@ -118,6 +118,29 @@
         </div>
     </section>
 
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by Team HackBIT
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="github" href="https://github.com/thesauravkarmakar/Fake-News-Detection"><i
+                                    class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
         function toggle() {
             var header = document.getElementById("header");
@@ -165,10 +188,7 @@
             var btnText = document.querySelector('.result');
 
             formData.append("searchtxt", data);
-            console.log(formData)
-            console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
             load();
-            console.log('ddeddd')
             fetch('https://bustnews.herokuapp.com/predict', {
                 method: 'post',
                 body: formData
